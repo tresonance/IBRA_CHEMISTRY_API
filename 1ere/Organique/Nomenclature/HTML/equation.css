@@ -1,0 +1,31 @@
+body {
+    background-color: black;color:white;
+    font-size:1.5em;
+    margin-left: 50px;
+}
+
+.vl {
+    border-left:6px solid white;
+    height: 100px;
+}
+
+.latex-title {
+    color:orange;
+}
+
+.ecran-partage {
+   // border:1px solid blue;
+}
+
+.ecran-partage li {
+    width: 30%;
+    display: inline-block;
+    vertical-align: bottom;
+    //border:1px solid yellow;
+    margin:10px;
+}
+
+.number {
+    color: white;
+}
+
