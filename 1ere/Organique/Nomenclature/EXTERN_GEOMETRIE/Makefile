@@ -70,7 +70,7 @@ $(NAME):  $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(ONLY_BOARD_OBJ_DIR)board-sfe-Media
 	
 	
 	@echo "$(GREEN) MAKE ** Building the executable ** $(RESET)"
-	@$(CXX) $(CFLAGS) -o $(NAME) $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(ONLY_BOARD_OBJ_DIR)board-sfe-MediaInfo.o $(ONLY_BOARD_OBJ_DIR)board-sfe-StreamSelector.o $(ONLY_BOARD_OBJ_DIR)board-sfe-UserInterface.o $(EXT_OBJ_DIR)main.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o   $(LIBS) /Library/Frameworks/sfeMovie.framework/Versions/2.0/sfeMovie && ./$(NAME)
+	@$(CXX) $(CFLAGS) -o $(NAME) $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(ONLY_BOARD_OBJ_DIR)board-sfe-MediaInfo.o $(ONLY_BOARD_OBJ_DIR)board-sfe-StreamSelector.o $(ONLY_BOARD_OBJ_DIR)board-sfe-UserInterface.o $(EXT_OBJ_DIR)main.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o   $(LIBS) /Library/Frameworks/sfeMovie.framework/Versions/2.0/sfeMovie && ./$(NAME) 2>/dev/null
 	@echo ""
 
 
