@@ -763,6 +763,10 @@ int main(){
                 case sf::Event::MouseButtonPressed:
                     cursorPos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window));
                     sc.handleScreenMouseButtonPressed(event, cursorPos);
+                    //Movies backward forward event 
+                    if(true == anim_movies.handleBackwardForwardButtonPressed(event, cursorPos) ){
+                        mymusic.movie.stop();
+                    }
                     //Extern 
                     if ( ext_index >= 0 ){
                         //0 : Do nothing 
@@ -833,9 +837,7 @@ int main(){
         if ( SHOW_ANIMATED_SFE_MOVIES_VIDEO ){ anim_movies.movie.update(); }
         
         if ( PLAY_MUSIC_SFE_MOVIES_VIDEO && (mymusic.movie.getPlayingOffset().asSeconds() >= anim_movies.movie.getDuration().asSeconds())  ){ 
-         
             mymusic.movie.stop();
-            
         }
         if (PLAY_MUSIC_SFE_MOVIES_VIDEO)
             mymusic.movie.play();
@@ -848,6 +850,7 @@ int main(){
         if ( SHOW_ANIMATED_SFE_MOVIES_VIDEO ){
           
             window->draw(anim_movies.movie);
+            window->draw(anim_movies.numberVideo);
             ui->draw();
         }
     
@@ -867,6 +870,10 @@ int main(){
         sc.tm.draw(window); //screen TITLE AND LESSON
         sc.grid.draw(window); //screen object draw
   
+        //Draw backward and forward video button
+        window->draw(anim_movies.button_video_forward);
+        window->draw(anim_movies.button_video_backward);
+        
         
         
 

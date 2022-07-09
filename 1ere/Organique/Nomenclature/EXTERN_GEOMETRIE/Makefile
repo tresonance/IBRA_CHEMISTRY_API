@@ -41,6 +41,7 @@ $(ONLY_BOARD_OBJ_DIR)%.o : $(ONLY_BOARD_BASE_DIR)%.cpp
 $(ONLY_BOARD_OBJ_DIR)%.o : $(ONLY_BOARD_OBJ_DIR)%.hpp
 		@$(CXX) -c $< -o $@
 
+
 # myopencl bin
 $(MY_OPENCL_OBJ_DIR)%.o : $(MY_OPENCL_BASE_DIR)%.cpp 
 		@mkdir -p $(MY_OPENCL_OBJ_DIR)
@@ -62,7 +63,7 @@ $(EXT_OBJ_DIR)%.o : $(EXT_BASE_DIR)%.hpp $(MY_OPENCL_BASE_DIR)*.hpp $(ONLY_BOARD
 $(NAME):  $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(ONLY_BOARD_OBJ_DIR)board-sfe-MediaInfo.o $(ONLY_BOARD_OBJ_DIR)board-sfe-StreamSelector.o $(ONLY_BOARD_OBJ_DIR)board-sfe-UserInterface.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o  $(EXT_OBJ_DIR)main.o 
 	@echo ""
 	@echo "$(GREEN) [MOUNT VOLUME FILE LIST] $(RESET)"
-	MOUNT_FILES="$(shell mount -t /dev/disk2s1 && ls  "/Volumes/Disk E"  )"
+	MOUNT_FILES="$(shell mount -t /dev/disk2s1 && ls  "/Volumes/DiskE"  )"
 	@echo "$(CYAN) $(MOUNT_FILES) $(RESET)"
 
 	SYMLINK="$(shell ln -s /Users/whodunit/GIT_ONLY_BOARD_GPU  ONLY_BOARD)"

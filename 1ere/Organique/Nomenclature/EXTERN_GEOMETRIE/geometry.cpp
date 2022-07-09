@@ -2,6 +2,12 @@
 #include "./geometry.hpp"
 
 
+//* * * * * * * * * * * * * * * * * * * * * * * */
+//*   THE DIFFERENTS FONT USE FOR Sfml Text class
+//* * * * * * * * * * * * * * * * * * * * * * * */  
+const char *MY_EXTERN_FONTS[] = {"arial.ttf", "Pacifico-Regular.ttf"};
+
+
 const char *TRIGO_IMAGES[] = { //FOR THIS EXTERN CENTER MENU
     "circle_trigo_geogebra.png", "tableau_trigo.png", //first Video (video 1)
     "circle_trigo_geogebra_v2.png", //Second video
@@ -17,20 +23,20 @@ const char *TRIGO_IMAGES[] = { //FOR THIS EXTERN CENTER MENU
 //MP4 files to display (videos files build from MANIM)
 const char *MP4_FILES[] = {
     //INTROS VIDEOS
-    "/Volumes/Disk E/VIDEOS-1ere-Maths-mp4/mp4_produit_scalaire/PreviewVideosSeriesProSca1ere.mp4",
+    "/Volumes/DiskE/VIDEOS-1ere-Maths-mp4/mp4_produit_scalaire/PreviewVideosSeriesProSca1ere.mp4",
     //COURSES VIDEOS
     //"/Volumes/Disk E/VIDEOS-1ere-Chemistry-mp4/mp4_produit_scalaire/RappelNormU_1.mp4",
-    "/Volumes/Disk E/VIDEOS-1ere-Chemistry-mp4//ChanimScene.mp4"
+    "/Volumes/DiskE/VIDEOS-1ere-Chemistry-mp4//ChanimScene.mp4"
 };  
 
 //SOUND FILES
 const char *MP3_FILES[] =  {
     //"/Users/whodunit/Downloads/ambientloop-30657.mp3"
-     "/Volumes/Disk E/MP3_FILES/bluetreeaudio_preview.ogg",
-    "/Volumes/Disk E/MP3_FILES/ambientloop-30657.ogg",
+     "/Volumes/DiskE/MP3_FILES/bluetreeaudio_preview.ogg",
+    "/Volumes/DiskE/MP3_FILES/ambientloop-30657.ogg",
 
-     "/Volumes/Disk E/MP3_FILES/bluetreeaudio_preview.mp3",
-    "/Volumes/Disk E/MP3_FILES/ambientloop-30657.mp3"
+     "/Volumes/DiskE/MP3_FILES/bluetreeaudio_preview.mp3",
+    "/Volumes/DiskE/MP3_FILES/ambientloop-30657.mp3"
 };
 
 
@@ -45,7 +51,7 @@ ext::ExternCenterMenu::ExternCenterMenu(){
         sf::Vector2f(1.1f, 1.1f)
     };
 
-     std::string center_menu_trigo("/Volumes/Disk E/MY_CHANELS_VIDEOS_ICONS/CENTER_MENU_TRIGO_IMAGES/");
+     std::string center_menu_trigo("/Volumes/DiskE/MY_CHANELS_VIDEOS_ICONS/CENTER_MENU_TRIGO_IMAGES/");
 
     /*if (1 == TRIGONOMETRIE_VIDEO_INDEX ){
         if( !this->course_texture_vector[0].loadFromFile(center_menu_trigo + std::string(TRIGO_IMAGES[TRIGONOMETRIE_VIDEO_INDEX - 1]) )){ std::cout << "[ERROR]: Unable to load course text texture "+std::string(TRIGO_IMAGES[TRIGONOMETRIE_VIDEO_INDEX - 1]); exit(1);}
@@ -91,6 +97,7 @@ void ext::ExternCenterMenu::draw(sf::RenderWindow *window){
 }
 
 
+
 //-------------- Animated SFE MOVIES  -------------------------------//
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 //*   This class is to implement the GIF class with method and attributes
@@ -99,8 +106,18 @@ void ext::ExternCenterMenu::draw(sf::RenderWindow *window){
 ext::AnimatedSFE_MOVIES::AnimatedSFE_MOVIES()
 {  
     if ( SHOW_ANIMATED_SFE_MOVIES_VIDEO ){
+        
+        //set font
+        std::string volume_font_abs_path("/Volumes/DiskE/MY_CHANELS_VIDEOS_ICONS/MY_FONTS/");
+        if (!this->font.loadFromFile( volume_font_abs_path + MY_EXTERN_FONTS[MYFONTS_INDEX] )){ std::cout << "Error arial not loaded"; exit(2);}
+        if (!this->domain_font.loadFromFile( volume_font_abs_path + MY_EXTERN_FONTS[DOMAIN_FONT_INDEX] )){ std::cout << "Error arial not loaded"; exit(2);}
+        
+
+        //set  media file
         this->mediaFile = std::string(MP4_FILES[CHEMISTRY_VIDEO_INDEX]);
         //this->mediaFile = std::string()
+        this->mp4_files_number = sizeof(MP4_FILES)/sizeof(MP4_FILES[0]);;
+        this->clickedNumber = (int)CHEMISTRY_VIDEO_INDEX;
         if (!this->movie.openFromFile(this->mediaFile)){
             my_pause();
             //return 1;
@@ -116,16 +133,56 @@ ext::AnimatedSFE_MOVIES::AnimatedSFE_MOVIES()
             this->height = std::max(this->height, 40.f);
         } 
         this->movie.fit(0, 0, this->width, this->height);
-                
+        //set backward and forward buttons
+        float shift = 0.0f;
+        this->button_video_backward = sf::CircleShape(BACKWARD_FORWARD_BUTTONS_RADIUS, 3);
+        //this->button_video_backward.setFillColor(BACKWARD_FORWARD_BUTTONS_FILL_COLOR);
+        this->button_video_backward.setFillColor(CYAN);
+        this->button_video_backward.setOutlineColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+        this->button_video_backward.setScale(sf::Vector2f(BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR, BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR));
+        this->button_video_backward.setRotation(-90) ;
+        this->button_video_backward.setPosition(sf::Vector2f(
+           sc.lm.container.getGlobalBounds().left + 0.5f*sc.lm.container.getGlobalBounds().width  - 0.5f*sc.lm.container_resetAll.getGlobalBounds().width + shift, sc.lm.container_resetAll.getGlobalBounds().top + sc.lm.container_resetAll.getGlobalBounds().height + 0.95*LEFT_MENU_SPRIT_ESPACEMENT )
+        );
+
+        this->button_video_forward = sf::CircleShape(BACKWARD_FORWARD_BUTTONS_RADIUS, 3);
+        this->button_video_forward.setFillColor(BACKWARD_FORWARD_BUTTONS_FILL_COLOR);
+        this->button_video_forward.setOutlineColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+        this->button_video_forward.setScale(sf::Vector2f(BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR, BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR));
+        this->button_video_forward.setRotation(90) ;
+        this->button_video_forward.setPosition(sf::Vector2f(
+           sc.lm.container.getGlobalBounds().left + 0.5f*sc.lm.container.getGlobalBounds().width  + 0.5f*sc.lm.container_resetAll.getGlobalBounds().width + shift , sc.lm.container_resetAll.getGlobalBounds().top + sc.lm.container_resetAll.getGlobalBounds().height + 0.98*LEFT_MENU_SPRIT_ESPACEMENT )
+        );
+
+        //set video number text 
+        this->numberVideo.setFont(this->font);
+        this->numberVideo.setString(TOP_MENU_MPC_TITLE); 
+        this->numberVideo.setString(std::to_string(CHEMISTRY_VIDEO_INDEX)); 
+        this->numberVideo.setCharacterSize(static_cast< float >(DEFAULT_TOP_MENU_MPC_TITLE_TEXT_CHARACTER_SIZE)); // in pixels, not points!
+        this->numberVideo.setLetterSpacing(1.5f);
+        this->numberVideo.setFillColor(TEXT_VIDEO_NUMBER_FILL_COLOR);
+        this->numberVideo.setOutlineColor(TEXT_VIDEO_NUMBER_OUTLINE_COLOR);
+        this->numberVideo.setPosition(
+             sc.lm.container.getGlobalBounds().left + 0.5f*sc.lm.container.getGlobalBounds().width  - 0.5f*sc.lm.container_resetAll.getGlobalBounds().width + shift, sc.lm.container_resetAll.getGlobalBounds().top + sc.lm.container_resetAll.getGlobalBounds().height + 2*0.95*LEFT_MENU_SPRIT_ESPACEMENT 
+        );
+
+        
     }
 }
 
 ext::AnimatedSFE_MOVIES::AnimatedSFE_MOVIES(int mp3_music_index)
 {  
     if ( SHOW_ANIMATED_SFE_MOVIES_VIDEO ){
+        std::string volume_font_abs_path("/Volumes/DiskE/MY_CHANELS_VIDEOS_ICONS/MY_FONTS/");
+
+        if (!this->font.loadFromFile( volume_font_abs_path + MY_EXTERN_FONTS[MYFONTS_INDEX] )){ std::cout << "Error arial not loaded"; exit(2);}
+        if (!this->domain_font.loadFromFile( volume_font_abs_path + MY_EXTERN_FONTS[DOMAIN_FONT_INDEX] )){ std::cout << "Error arial not loaded"; exit(2);}
+     
         this->mediaFile = std::string(MP3_FILES[mp3_music_index]);
         try
         {
+            this->mp4_files_number = sizeof(MP4_FILES)/sizeof(MP4_FILES[0]);
+            this->clickedNumber = mp3_music_index;
             if (!this->movie.openFromFile(this->mediaFile)){
                 my_pause();
                 std::cout << "[ERROR] : Unable to open MP3 music file\n";
@@ -157,6 +214,102 @@ ext::AnimatedSFE_MOVIES::AnimatedSFE_MOVIES(int mp3_music_index)
             this->height = std::max(this->height, 40.f);
         } 
         this->movie.fit(0, 0, this->width, this->height);
-                
+
+         //set backward and forward buttons
+        float shift = 0.0f;
+        this->button_video_backward = sf::CircleShape(BACKWARD_FORWARD_BUTTONS_RADIUS, 3);
+        //this->button_video_backward.setFillColor(BACKWARD_FORWARD_BUTTONS_FILL_COLOR);
+        this->button_video_backward.setFillColor(CYAN);
+        this->button_video_backward.setOutlineColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+        this->button_video_backward.setScale(sf::Vector2f(BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR, BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR));
+        this->button_video_backward.setRotation(-90) ;
+        this->button_video_backward.setPosition(sf::Vector2f(
+           sc.lm.container.getGlobalBounds().left + 0.5f*sc.lm.container.getGlobalBounds().width  - 0.5f*sc.lm.container_resetAll.getGlobalBounds().width + shift , sc.lm.container_resetAll.getGlobalBounds().top + sc.lm.container_resetAll.getGlobalBounds().height + 0.95*LEFT_MENU_SPRIT_ESPACEMENT )
+        );
+
+        this->button_video_forward = sf::CircleShape(BACKWARD_FORWARD_BUTTONS_RADIUS, 3);
+        this->button_video_forward.setFillColor(BACKWARD_FORWARD_BUTTONS_FILL_COLOR);
+        this->button_video_forward.setOutlineColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+        this->button_video_forward.setScale(sf::Vector2f(BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR, BACKWARD_FORWARD_BUTTONS_SCALEX_FACTOR));
+        this->button_video_forward.setRotation(-90) ;
+        this->button_video_forward.setPosition(sf::Vector2f(
+           sc.lm.container.getGlobalBounds().left + 0.5f*sc.lm.container.getGlobalBounds().width  + 0.5f*sc.lm.container_resetAll.getGlobalBounds().width + shift, sc.lm.container_resetAll.getGlobalBounds().top + sc.lm.container_resetAll.getGlobalBounds().height + 0.98*LEFT_MENU_SPRIT_ESPACEMENT )
+        );  
+
+        //set video number text 
+        this->numberVideo.setFont(this->font);
+        this->numberVideo.setString(TOP_MENU_MPC_TITLE); 
+        this->numberVideo.setString(std::to_string(MYFONTS_INDEX)); 
+        this->numberVideo.setCharacterSize(static_cast< float >(DEFAULT_TOP_MENU_MPC_TITLE_TEXT_CHARACTER_SIZE)); // in pixels, not points!
+        this->numberVideo.setLetterSpacing(1.5f);
+        this->numberVideo.setFillColor(TEXT_VIDEO_NUMBER_FILL_COLOR);
+        this->numberVideo.setOutlineColor(TEXT_VIDEO_NUMBER_OUTLINE_COLOR);
+        this->numberVideo.setPosition(
+             sc.lm.container.getGlobalBounds().left + 0.5f*sc.lm.container.getGlobalBounds().width  - 0.5f*sc.lm.container_resetAll.getGlobalBounds().width + shift, sc.lm.container_resetAll.getGlobalBounds().top + sc.lm.container_resetAll.getGlobalBounds().height + 2*0.95*LEFT_MENU_SPRIT_ESPACEMENT 
+        );      
     }
+}
+
+int ext::AnimatedSFE_MOVIES::is_backward_forward_buttons_clicked(sf::Vector2f &cursorPos){
+    this->button_video_forward.setOutlineColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+    this->button_video_backward.setOutlineColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+
+    this->button_video_forward.setFillColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+    this->button_video_backward.setFillColor(BACKWARD_FORWARD_BUTTONS_OUTLINE_COLOR);
+
+    if ( SHOW_ANIMATED_SFE_MOVIES_VIDEO ){
+    if(this->button_video_backward.getGlobalBounds().contains(cursorPos)){ 
+        --this->clickedNumber;
+         //printf("LEFT-------> %d", this->clickedNumber);
+        this->button_video_backward.setFillColor(MAGENTA);
+     }
+    else if(this->button_video_forward.getGlobalBounds().contains(cursorPos)){ 
+        ++this->clickedNumber; 
+        this->button_video_forward.setFillColor(ORANGE);
+         //printf("RIGHT-------> %d", this->clickedNumber);
+    }
+    
+    return (this->mp4_files_number + this->clickedNumber%this->mp4_files_number)%this->mp4_files_number;
+    }
+    return -1;
+}
+
+
+
+bool ext::AnimatedSFE_MOVIES::handleBackwardForwardButtonPressed(sf::Event event, sf::Vector2f &cursorPos){
+    if ( (false == this->button_video_backward.getGlobalBounds().contains(cursorPos)) && 
+    (false == this->button_video_forward.getGlobalBounds().contains(cursorPos)) )
+        return false;
+
+    int mp4_file_index = this->is_backward_forward_buttons_clicked( cursorPos );
+    if (SHOW_ANIMATED_SFE_MOVIES_VIDEO && mp4_file_index >= 0){
+        
+        //this->mediaFile = std::string(MP4_FILES[mp4_file_index]);
+        this->mediaFile = std::string(MP4_FILES[mp4_file_index]);
+        try
+        {
+            if(!this->movie.openFromFile(this->mediaFile)){
+                my_pause(); 
+                printf("\n-->>[Error:] Unable to open MP4_FILES[%d]\n", mp4_file_index);
+                printf("%s\n\n", this->mediaFile.c_str());
+                //return 1;
+            }else { 
+                //this->movie.stop();
+                this->numberVideo.setString(std::to_string(mp4_file_index));
+                this->movie.play();
+                printf("\nopened MP4_FILES[%d] .......... OK\n",mp4_file_index ); 
+                printf("%s\n\n", this->mediaFile.c_str());
+            }
+            sf::sleep(sf::milliseconds(10));
+            return true;
+        }
+        catch (std::exception& e)
+        {
+            printf("\n-->>[Error:] Unable to open MP4_FILES[%d]\n", mp4_file_index);
+            printf("%s\n\n", this->mediaFile.c_str());
+            std::cout << "[WHICH ERROR]: " <<  e.what() << '\n';
+            return false;
+        }
+    } 
+    return false;
 }
