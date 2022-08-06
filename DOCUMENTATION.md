@@ -1,4 +1,3 @@
-
 #------------------------------------------------------------------#
 
 https://github.com/kilacoda/chanim/blob/master/chanim/chem_anims.py
@@ -16,16 +15,13 @@ ffmpeg -i input.mp3 output.ogg
 CHANIM GITHUB:
 https://github.com/kilacoda/chanim/tree/master/chanim
 
-CHANIM-DOCUMENTATION:
-http://ctan.imsc.res.in/macros/generic/chemfig/chemfig-en.pdf
-
 #------------------------------------------------------------------------#
 ### PATH
 ```
 cd /Users/whodunit/MY_CHANELS_CHEMISTRY
 ```
 ## DOCUMENTATION:
-manim: https://openbase.com/python/chanim/documentation
+manim: https://github.com/Matheart/manim-physics
 
 ### HOW TO RUN (to see running manim videos): 
 Note: this software must be integrated to External application like Prodsca, trigo, chemistry, physic ...

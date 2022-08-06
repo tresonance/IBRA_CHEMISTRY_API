@@ -8,6 +8,8 @@
 const char *MY_EXTERN_FONTS[] = {"arial.ttf", "Pacifico-Regular.ttf"};
 
 
+
+/*
 const char *TRIGO_IMAGES[] = { //FOR THIS EXTERN CENTER MENU
     "circle_trigo_geogebra.png", "tableau_trigo.png", //first Video (video 1)
     "circle_trigo_geogebra_v2.png", //Second video
@@ -18,16 +20,17 @@ const char *TRIGO_IMAGES[] = { //FOR THIS EXTERN CENTER MENU
     "circle_x_tan.png",             
     "courbe_sin.png"                
 };
-
+*/
 
 //MP4 files to display (videos files build from MANIM)
 const char *MP4_FILES[] = {
-    //INTROS VIDEOS
-    "/Volumes/DiskE/VIDEOS-1ere-Maths-mp4/mp4_produit_scalaire/PreviewVideosSeriesProSca1ere.mp4",
-    //COURSES VIDEOS
-    //"/Volumes/Disk E/VIDEOS-1ere-Chemistry-mp4/mp4_produit_scalaire/RappelNormU_1.mp4",
-    "/Volumes/DiskE/VIDEOS-1ere-Chemistry-mp4//ChanimScene.mp4"
-};  
+   //INTROS VIDEOS
+    "/Volumes/DiskE/VIDEOS-1ere-Maths-mp4/mp4_trigo/PreviewVideosSeriesTrigo1ere.mp4",
+    //COURSES VIDEOS  
+     /*1st group*/
+    "/Volumes/DiskE/VIDEOS-Tle-Chemistry-mp4/AlcololScene.mp4",
+    
+};
 
 //SOUND FILES
 const char *MP3_FILES[] =  {

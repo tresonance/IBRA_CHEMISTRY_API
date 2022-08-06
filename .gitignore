@@ -1,0 +1,11 @@
+obj/
+*.o
+*@
+*_pycache__/
+media/ 
+*cache
+*ipy*
+*jupyter
+*local
+*bash_history
+*swp
