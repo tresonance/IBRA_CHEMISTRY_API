@@ -1,9 +1,11 @@
 #------------------------------------------------------------------#
 CHANIM_GITHUB
+
 https://github.com/kilacoda/chanim
 
 
 CHEMFIG_DOCUMENTATION:
+
 http://ctan.imsc.res.in/macros/generic/chemfig/chemfig-en.pdf
 
 TRICK TO:
