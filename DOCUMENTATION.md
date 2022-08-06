@@ -1,6 +1,10 @@
 #------------------------------------------------------------------#
+CHANIM_GITHUB
+https://github.com/kilacoda/chanim
 
-https://github.com/kilacoda/chanim/blob/master/chanim/chem_anims.py
+
+CHEMFIG_DOCUMENTATION:
+http://ctan.imsc.res.in/macros/generic/chemfig/chemfig-en.pdf
 
 TRICK TO:
 Convert a video file from mp4 to webm:
