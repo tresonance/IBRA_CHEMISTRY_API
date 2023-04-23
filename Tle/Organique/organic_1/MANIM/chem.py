@@ -25,8 +25,6 @@ class AlcololScene(Scene):
         chem[0][7].set_color(PINK)
         chem[0][9].set_color(YELLOW)
        
-        
-        
         self.play(FadeIn(chem))
         #self.play(.find("=") ].animate.set_color(YELLOW))
         

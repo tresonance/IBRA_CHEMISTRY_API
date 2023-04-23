@@ -50,7 +50,8 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8  
 
 RUN sed -i s/"from manim.mobject.types.vectorized_mobject import VGroup, VMobject"/"from manim import *"/ "../cloneChanim/chanim/chem_objects.py" \
-&&  sed -i s/"from manim.mobject.text.tex_mobject import \*"/"from chanim import *"/ "../cloneChanim/chanim/chem_objects.py"
+&&  sed -i s/"from manim.mobject.text.tex_mobject import \*"/"from chanim import *"/ "../cloneChanim/chanim/chem_objects.py" \
+&& sed -i s/"TexSymbol/Tex"/g "../cloneChanim/chanim/chem_objects.py"
 
 RUN sed "${15}q;d" "../cloneChanim/chanim/chem_objects.py" \
 && sed "${15}q;d" "../cloneChanim/chanim/chem_objects.py" \

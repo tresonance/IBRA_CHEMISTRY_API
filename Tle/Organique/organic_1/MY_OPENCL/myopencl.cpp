@@ -1,7 +1,26 @@
 #include "myopencl.hpp"
 
+//----------------- color 
+/*#define PRINTF_BLACK \033[0;30m
+#define PRINTF_RED \033[0;31m
+#define PRINTF_GREEN \033[0;32m
+#define PRINTF_YELLOW \033[0;33m
+#define  PRINTF_BLUE \033[0;34m
+#define  PRINTF_PURPLE \033[0;35m
+#define  PRINTF_CYAN \033[0;36m
+#define  PRINTF_GREEN \033[0;37m
+#define  PRINTF_RESET \033[0m
+*/
 
 //-------------------------------------------------------------------------------------------------//
+// The followings functions has been move to only-board.gpu/only-board.gpu.cpp 
+// because i decided to all opencl conext and relatives function from
+//main.cpp and from myopencl.hpp and myopencl.cpp 
+//You cannsee their signature in only-board.gpu.hh and they
+//definition in only-board.gpu.cpp at the bottom (the utils part)
+//------------------------------------------------------------------------------
+
+/*
 int loadProgramSource(const char *filename, char **p_source_string, size_t *length)
 {
     FILE *file;
@@ -286,3 +305,4 @@ switch(error){
     default: return "Unknown OpenCL error";
     }
 }
+*/

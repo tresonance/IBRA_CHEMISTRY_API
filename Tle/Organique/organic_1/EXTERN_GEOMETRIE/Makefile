@@ -5,30 +5,51 @@ YELLOW		=	\033[33;1m
 BLUE		=	\033[34;1m
 PURPLE		=	\033[35;1m
 CYAN		=	\033[36;1m
-WHITE		=	\033[37;1m
+MAGENTA		=	\033[95;1m
+GREEN		=	\033[37;1m
 RESET		=	\033[0m
 CLEAR		=	\033[H\e[J
 
-NAME		= video-course-chemistry
+# =====  ====== ====== ======= =====
+NAME		= video-course-chemistry-bin
+# =====  ====== ====== ======= =====
+IBRAHIMA_DIR=/Users/ibrahimatraore/
+COURSES_DIR=$(IBRAHIMA_DIR)/COURSES
+ONLY_BOARD_DIR =$(COURSES_DIR)/MY_CHANELS_MATHS
+# Library to be linked  
+SFE_SFML_LIBS=$(COURSES_DIR)/SFE_SFML_LIBS
+# Headers to be included
+BASIC_SFE_DIR=$(SFE_SFML_LIBS)/basic_sfe
+SFE_HEADERS_DIR=$(BASIC_SFE_DIR)/sfe_headers
+SFML_HEADERS_DIR=$(BASIC_SFE_DIR)/sfml_headers
 
+OBJ_DIR		=	obj/
+
+NO_WARNINGS_FLAGS=-Wno-deprecated -Wno-c++11-extensions -Wno-inconsistent-missing-override -lsfml-graphics -lsfml-window -lsfml-system
+SFML_HEADERS_DIR=${BASIC_SFE_DIR}/sfml_headers 
+
+# SO Library Name without prefix lib and extensio .so
+SO_LIBRARY_NAME=sfe_movie_bin 
+
+CXXFLAGS=-std=c++11 $(NO_WARNINGS_FLAGS) -I$(SFML_HEADERS_DIR) -I$(FFmpeg_HEADERS_DIR) -I$(SFE_HEADERS_DIR) -framework OpenCL 
+# ===============================
+# ===============================
+# External base dir 
 EXT_BASE_DIR = ./
 EXT_OBJ_DIR		=	$(EXT_BASE_DIR)obj/
 EXT_BIN = EXT_BIN 
-
-ONLY_BOARD_BASE_DIR = ../ONLY_BOARD/
+# Only board to be linked 
+ONLY_BOARD_BASE_DIR = $(COURSES_DIR)/ONLY_BOARD_MATHS/
 ONLY_BOARD_OBJ_DIR = $(ONLY_BOARD_BASE_DIR)obj/
 ONLY_BOARD_BIN = ONLY_BOARD_BIN
-
+# My Opencl dir
 MY_OPENCL_BASE_DIR = ../MY_OPENCL/
 MY_OPENCL_OBJ_DIR = $(MY_OPENCL_BASE_DIR)obj/
 MY_OPENCL_BIN = MY_OPENCL_BIN
 
-CFLAGS = -I/Library/Frameworks/sfeMovie.framework/Versions/2.0/Headers  -I/usr/local/Cellar/sfml/2.5.1_1/include -framework OpenCL
-
-LIBS		= -std=c++17 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+LIBS		= -std=c++17 -lsfml-graphics -lsfml-window -lsfml-system 
 CXX := g++ 
 
-TITLE=Ibrahima
 
 all: $(NAME)
 .PHONY : all
@@ -40,7 +61,6 @@ $(ONLY_BOARD_OBJ_DIR)%.o : $(ONLY_BOARD_BASE_DIR)%.cpp
 
 $(ONLY_BOARD_OBJ_DIR)%.o : $(ONLY_BOARD_OBJ_DIR)%.hpp
 		@$(CXX) -c $< -o $@
-
 
 # myopencl bin
 $(MY_OPENCL_OBJ_DIR)%.o : $(MY_OPENCL_BASE_DIR)%.cpp 
@@ -60,29 +80,31 @@ $(EXT_OBJ_DIR)%.o : $(EXT_BASE_DIR)%.hpp $(MY_OPENCL_BASE_DIR)*.hpp $(ONLY_BOARD
 
 
 # executable
-$(NAME):  $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(ONLY_BOARD_OBJ_DIR)board-sfe-MediaInfo.o $(ONLY_BOARD_OBJ_DIR)board-sfe-StreamSelector.o $(ONLY_BOARD_OBJ_DIR)board-sfe-UserInterface.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o  $(EXT_OBJ_DIR)main.o 
+$(NAME):  $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o  $(EXT_OBJ_DIR)main.o 
+	
+	@echo "\n\n\033[38m ====================================================== \n\033[0m"
+	@echo "$(GREEN) MAKE ** Building the executable ** \033[0m"
+	@echo "$(PURPLE) \n\t\t\t........................ \033[0m"
+	@echo "$(MAGENTA) \t\t\t  EXTERN MATHS \033[0m"
+	@echo "$(PURPLE) \t\t\t........................\n \033[0m"
+	@echo "\033[37m ========================================================== \033[0m\n"
+	$(shell export  LD_LIBRARY_PATH=/Users/ibrahimatraore/COURSES/SFE_SFML_LIBS/basic_sfe)
+	@$(CXX) $(CXXFLAGS) -L$(BASIC_SFE_DIR) -l$(SO_LIBRARY_NAME) $(LIBS) -o $(NAME) $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o  $(EXT_OBJ_DIR)main.o   && ./$(NAME) 
 	@echo ""
-	@echo "$(GREEN) [MOUNT VOLUME FILE LIST] $(RESET)"
-	MOUNT_FILES="$(shell mount -t /dev/disk2s1 && ls  "/Volumes/DiskE"  )"
-	@echo "$(CYAN) $(MOUNT_FILES) $(RESET)"
 
-	SYMLINK="$(shell ln -s /Users/whodunit/GIT_ONLY_BOARD_GPU  ONLY_BOARD)"
-	@echo "$(YELLOW) SYMLINK USED: $(RESET) $(BLUE) ONLY_BOARD@ -> /Users/whodunit/GIT_ONLY_BOARD_GPU \n$(RESET)"
-	
-	
-	@echo "$(GREEN) MAKE ** Building the executable ** $(RESET)"
-	@$(CXX) $(CFLAGS) -o $(NAME) $(ONLY_BOARD_OBJ_DIR)board-gpu.o  $(ONLY_BOARD_OBJ_DIR)board-sfe-MediaInfo.o $(ONLY_BOARD_OBJ_DIR)board-sfe-StreamSelector.o $(ONLY_BOARD_OBJ_DIR)board-sfe-UserInterface.o $(EXT_OBJ_DIR)main.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)geometry.o   $(LIBS) /Library/Frameworks/sfeMovie.framework/Versions/2.0/sfeMovie && ./$(NAME) 2>/dev/null
-	@echo ""
 
 
 .PHONY: clean
 clean:	
-	@echo "\033[48;5;15;38;5;25;1mMAKE ** Removing object files and executable... $(RESET)"
+	@echo "\n\n\033[38m ====================================================== \033[0m\n"
+	@echo "\033[48;5;15;38;5;25;1mMAKE ** Removing object files and executable... \033[0m\n"
 	@rm -rf $(NAME)   $(EXT_OBJ_DIR)*.o $(ONLY_BOARD_OBJ_DIR)*.o $(MY_OPENCL_OBJ_DIR)*.o
+	
 
 
 fclean: 
-	@echo "$(YELLOW)CLEAN ALL OBJECTS DIRECTORIES FILES$(GREEN)			[ OK ]$(RESET)"
+	@echo "\n\n\033[38m ====================================================== \033[0m\n"
+	@echo "\033[36m-> -> CLEAN ALL OBJECTS DIRECTORIES FILES$(GREEN)			[ OK ]\033[0m"
 	@rm -rf $(EXT_OBJ_DIR)
 	@rm -rf $(ONLY_BOARD_OBJ_DIR)
 	@rm -rf $(MY_OPENCL_OBJ_DIR)
@@ -90,7 +112,7 @@ fclean:
 	@rm -rf EXT_BIN
 	@rm -rf MY_OPENCL_BIN
 	@rm -rf ONLY_BOARD_BIN
-	@echo "$(YELLOW)Clean	$(NAME)$(GREEN)			[ OK ]$(RESET)"
+	@echo "$(YELLOW)-> -> Clean	binary $(NAME)$(GREEN)			[ OK ]\033[0m"
 
 re: fclean all
 
