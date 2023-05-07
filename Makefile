@@ -37,10 +37,11 @@ EXT_BIN = EXT_BIN
 
 
 # Library to be linked  
-#SFE_SFML_LIBS=$(COURSES_DIR)/SFE_SFML_LIBS
-SFE_SFML_LIBS=$(MY_CHANELS_GENERIC_SYMLINK)/SFE_SFML_LIBS_SYMLINK
+#SFE_SFML_IMGUI_LIBS=$(COURSES_DIR)/SFE_SFML_IMGUI_LIBS
+SFE_SFML_IMGUI_LIBS=$(MY_CHANELS_GENERIC_SYMLINK)/SFE_SFML_IMGUI_LIBS_SYMLINK
 # Headers to be included
-BASIC_SFE_DIR=$(SFE_SFML_LIBS)/basic_sfe
+BASIC_SFE_DIR=$(SFE_SFML_IMGUI_LIBS)/basic_sfe
+BASIC_ALL_IN_ONE_DIR=$(SFE_SFML_IMGUI_LIBS)/basic_all_in_one
 SFE_HEADERS_DIR=$(BASIC_SFE_DIR)/sfe_headers
 SFML_HEADERS_DIR=$(BASIC_SFE_DIR)/sfml_headers
 
@@ -50,7 +51,7 @@ NO_WARNINGS_FLAGS=-Wno-deprecated -Wno-c++11-extensions -Wno-inconsistent-missin
 SFML_HEADERS_DIR=${BASIC_SFE_DIR}/sfml_headers 
 
 # SO Library Name without prefix lib and extensio .so
-SO_LIBRARY_NAME=sfe_movie_bin 
+SO_LIBRARY_NAME=sfe_sfml_imgui_bin 
 
 CXXFLAGS=-std=c++11 $(NO_WARNINGS_FLAGS) -I$(SFML_HEADERS_DIR) -I$(FFmpeg_HEADERS_DIR) -I$(SFE_HEADERS_DIR) -framework OpenCL 
 # ===============================
@@ -97,11 +98,11 @@ $(NAME):  $(ONLY_BOARD_OBJ_DIR)board-only.o $(ONLY_BOARD_OBJ_DIR)board-ext-geome
 	@echo "\n\n\033[38m ====================================================== \n\033[0m"
 	@echo "$(GREEN) MAKE ** Building the executable ** \033[0m"
 	@echo "$(PURPLE) \n\t\t\t........................ \033[0m"
-	@echo "$(MAGENTA) \t\t\t  EXTERN MATHS  \033[0m"
+	@echo "$(MAGENTA) \t\t\t  EXTERN CHEMISTRY  \033[0m"
 	@echo "$(PURPLE) \t\t\t........................\n \033[0m"
 	@echo "\033[37m ========================================================== \033[0m\n"
-	$(shell export  LD_LIBRARY_PATH=/Users/ibrahimatraore/COURSES/SFE_SFML_LIBS/basic_sfe)
-	@$(CXX) $(CXXFLAGS) -L$(BASIC_SFE_DIR) -l$(SO_LIBRARY_NAME) $(LIBS) -o $(NAME) $(ONLY_BOARD_OBJ_DIR)board-only.o $(ONLY_BOARD_OBJ_DIR)board-ext-geometry.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)ext-geometry.o  $(EXT_OBJ_DIR)main.o   && ./$(NAME) 
+	$(shell export  LD_LIBRARY_PATH=/Users/ibrahimatraore/COURSES/SFE_SFML_IMGUI_LIBS/basic_all_in_one)
+	@$(CXX) $(CXXFLAGS) -L$(BASIC_ALL_IN_ONE_DIR) -l$(SO_LIBRARY_NAME) $(LIBS) -o $(NAME) $(ONLY_BOARD_OBJ_DIR)board-only.o $(ONLY_BOARD_OBJ_DIR)board-ext-geometry.o $(MY_OPENCL_OBJ_DIR)myopencl.o  $(EXT_OBJ_DIR)ext-geometry.o  $(EXT_OBJ_DIR)main.o   && ./$(NAME) 
 	@echo ""
 
 

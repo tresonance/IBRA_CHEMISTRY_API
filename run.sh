@@ -61,7 +61,7 @@ then
     echo -e "${ONPURPLE} Info: To build corresponding docker image:  run: ./run.sh build ${RESET}\n"
     echo -e "${ONCYAN} Info: To create ONLY_BOARD_MATHS symlink:  run: ./run.sh symlink_ol or ./run.sh symol \t ${RESET}\n"
     echo -e "${ONPURPLE} Info: To run make command:  run: ./run.sh make \t OR \t run inside curennt directory: make re${RESET}\n"
-    echo -e "${ONYELLOW} Info: To create libsfe_movie_bin.so symlink:  run: ./run.sh symlink_lib or ./run.sh symlib \t ${RESET}\n"
+    echo -e "${ONYELLOW} Info: To create libsfe_sfml_imgui_bin.so symlink:  run: ./run.sh symlink_lib or ./run.sh symlib \t ${RESET}\n"
     echo -e "${ONCYAN} Info: To clean binary ceated object:  run: ./run.sh clean \t OR \t run inside current directory: make fclean && make clean ${RESET}\n"
     echo -e "${ONPURPLE} Info: To clean binray object and run make re:  run: ./run.sh makec \t OR \t run inside current directory : make clean && make fclean && make re ${RESET}\n"
     echo -e "${YELLOW} .......................END  U S A G E INFO.................... ${RESET}\n"
@@ -132,26 +132,26 @@ then
     $(rm -rf ./MY_CHANELS_GENERIC_SYMLINK  > /dev/null 2>&1 )
     # create new
     $(ln -s /Users/ibrahimatraore/COURSES/MY_CHANELS_GENERIC MY_CHANELS_GENERIC_SYMLINK > /dev/null 2>&1 )
-    $(ln -s /Users/ibrahimatraore/COURSES/SFE_SFML_LIBS/basic_sfe/libsfe_movie_bin.so libsfe_movie_bin.so > /dev/null 2>&1 )
+    $(ln -s /Users/ibrahimatraore/COURSES/SFE_SFML_IMGUI_LIBS/basic_all_in_one/libsfe_sfml_imgui_bin.so libsfe_sfml_imgui_bin.so > /dev/null 2>&1 )
     # remove recursive untracked dir in ONLY_DIR (the original not he link)
     $(rm -rf /Users/ibrahimatraore/COURSES/MY_CHANELS_GENERIC_SYMLINK/MY_CHANELS_GENERIC_SYMLINK > /dev/null 2>&1 )
     
     echo -e "${ONBLUE} MY_CHANELS_GENERIC_SYMLINK@ link has been created with MY_CHANELS_GENERIC DIRECTORY${RESET} \n"
     result=$(ls -lrt  | grep MY_CHANELS_GENERIC_SYMLINK)
     echo -e "${CYAN} ${result} ${RESET}\n"
-    result=$(ls -lrt  | grep libsfe_movie_bin.so)
+    result=$(ls -lrt  | grep libsfe_sfml_imgui_bin.so)
     echo -e "${CYAN} ${result} ${RESET}\n"
     return 
 elif [[ "$1" == "symlib" || "$1" == "symlink_lib" ]];
 then 
     
-    $(rm -rf ./libsfe_movie_bin.so  > /dev/null 2>&1 )
+    $(rm -rf ./libsfe_sfml_imgui_bin.so  > /dev/null 2>&1 )
     # create new
-    $(ln -s /Users/ibrahimatraore/COURSES/SFE_SFML_LIBS/basic_sfe/libsfe_movie_bin.so libsfe_movie_bin.so > /dev/null 2>&1 )
-    $(rm -rf /Users/ibrahimatraore/COURSES/libsfe_movie_bin.so/libsfe_movie_bin.so > /dev/null 2>&1)
+    $(ln -s /Users/ibrahimatraore/COURSES/SFE_SFML_IMGUI_LIBS/basic_all_in_one/libsfe_sfml_imgui_bin.so libsfe_sfml_imgui_bin.so > /dev/null 2>&1 )
+    $(rm -rf /Users/ibrahimatraore/COURSES/libsfe_sfml_imgui_bin.so/libsfe_sfml_imgui_bin.so > /dev/null 2>&1)
     
-    echo -e "${ONGREEN} libsfe_movie_bin.so@ link has been created with SFE_SFML_LIBS DIRECTORY${RESET}\n"
-    result=$(ls -lrt  | grep libsfe_movie_bin.so)
+    echo -e "${ONGREEN} libsfe_sfml_imgui_bin.so@ link has been created with SFE_SFML_IMGUI_LIBS DIRECTORY${RESET}\n"
+    result=$(ls -lrt  | grep libsfe_sfml_imgui_bin.so)
     echo -e "${CYAN} ${result} ${RESET}\n"
     return 
 elif [ "$1" == "make" ]
