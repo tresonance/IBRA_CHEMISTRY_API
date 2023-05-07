@@ -54,8 +54,8 @@ SFML_HEADERS_DIR=${BASIC_SFE_DIR}/sfml_headers
 SO_LIBRARY_NAME=sfe_sfml_imgui_bin 
 
 CXXFLAGS=-std=c++11 $(NO_WARNINGS_FLAGS) -I$(SFML_HEADERS_DIR) -I$(FFmpeg_HEADERS_DIR) -I$(SFE_HEADERS_DIR) -framework OpenCL 
-# ===============================
-# ===============================
+# ================================
+# ================================
 
 LIBS		= -std=c++17 -lsfml-graphics -lsfml-window -lsfml-system 
 CXX := g++ 
