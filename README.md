@@ -26,7 +26,7 @@ Elsewhere, i save a chanim github (the github we clone , see Dockerfile) here ht
 ```
 1- build your manim scene : 
 	
-	source run.shMANIC_DYNAMIC_FORCES/mypython_script.py 
+	source run.sh MANIC_DYNAMIC_FORCES/mypython_script.py 
 
 Fill free to check the new generated mp4 files, so runs :
 
@@ -86,14 +86,14 @@ cd ~/COURSES/MY_CHANELS_GENERIC
 
 ##### CREATE DIFFERENTS SYMBOLIK LINK
 ```
-1- To create ONLY_BOARD and SFE_SFML_LIBS_SYMLINK and libsfe_movie_bin.so symbolics link: 
+1- To create ONLY_BOARD and SFE_SFML_IMGUI_LIBS_SYMLINK and libsfe_sfml_imgui_bin.so symbolics link: 
     RUN: source run.sh symol
-    >> This will create two links to ONLY_BOARD and with SFE_SFML_LIBS links called respectively ONLY_BOARD_SYMLINK , SFE_SFML_LIBS_SYMLINK and libsfe_movie_bin.so
+    >> This will create two links to ONLY_BOARD and with SFE_SFML_LIBS links called respectively ONLY_BOARD_SYMLINK , SFE_SFML_IMGUI_LIBS_SYMLINK and libsfe_movie_bin.so
 ```
 
 ```
     Nota: Be sure the library libsfe_movie_bin.so has already been created inside SFE_SFML_LIBS. If not 
-    go to SFE_SFML_LIBS/basic_sfe and run: make -f Makefile_build_sfe_sfml_lib re
+    go to SFE_SFML_LIBS/basic_all_in_one and run: make -f Makefile_build_sfe_sfml_imhui_so_lib re
     >> Afer that rerun command: source run.sh symol
 ```
 
@@ -108,7 +108,7 @@ const char *EXT_MP4_FILES_ARRAY[] = { ... }
 ```
 
 
-### DOCUMENTATION AND USEFULS LINKS:
+### DOCUMENTATION AND USEFULS LINKS :
 manim: https://docs.manim.community/en/stable/index.html
 
 ### HOW TO RUN THIS SOTWARE
