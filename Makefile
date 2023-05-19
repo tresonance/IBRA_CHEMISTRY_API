@@ -121,6 +121,8 @@ fclean:
 	@rm -rf $(EXT_OBJ_DIR)
 	@rm -rf $(ONLY_BOARD_OBJ_DIR)
 	@rm -rf $(MY_OPENCL_OBJ_DIR)
+	@rm -rf temp.cpp 
+	@rm -rf temp
 	@rm -rf $(NAME)
 	@rm -rf EXT_BIN
 	@rm -rf MY_OPENCL_BIN

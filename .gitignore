@@ -1,6 +1,7 @@
 obj/
 *.o
 *@
+imgui.ini
 *__pycache__/
 media/ 
 .cache

@@ -18,7 +18,15 @@ You can do your additive staff inside those geometry files.
 Please, do not change the geometry files name.
 
 Elsewhere, i save a chanim github (the github we clone , see Dockerfile) here https://github.com/tresonance/Lab-chemistry-package in my github account.
+
+
+If you use imgui-editor, please make sure your cursor lies
+on editor screen so that editor mouseover event will prevent
+sfml-event like f:for fullscreen etc ...
+
+If you don't do it, when you type for example "f" inside editor, it won't appear but instead , you will see fullscreen.
 ```
+
 ###### HOW TO RUN ?
 
 #### =|=> MANIM DIRECTORY
@@ -194,3 +202,8 @@ https://www.zamzar.com/uploadComplete.php?session=5111fb3e3738c3a399ab6b6d77266e
 
 ###### AnimatedGIFS: code source origin:
     https://github.com/SFML/SFML/wiki/Source:-Animated-GIF
+
+
+###### Imgui-SFML: 
+	https://github.com/SFML/imgui-sfml
+
