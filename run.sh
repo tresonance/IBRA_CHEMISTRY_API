@@ -145,13 +145,13 @@ then
 elif [[ "$1" == "symlib" || "$1" == "symlink_lib" ]];
 then 
     
-    $(rm -rf ./libsfe_sfml_imgui_bin.so  > /dev/null 2>&1 )
+     $(rm -rf ./libsfe_sfml_imgui_svg_bin.so  > /dev/null 2>&1 )
     # create new
-    $(ln -s /Users/ibrahimatraore/COURSES/SFE_SFML_IMGUI_LIBS/basic_all_in_one/libsfe_sfml_imgui_bin.so libsfe_sfml_imgui_bin.so > /dev/null 2>&1 )
-    $(rm -rf /Users/ibrahimatraore/COURSES/libsfe_sfml_imgui_bin.so/libsfe_sfml_imgui_bin.so > /dev/null 2>&1)
+    $(ln -s /Users/ibrahimatraore/COURSES/SFE_SFML_IMGUI_LIBS/basic_all_in_one/libsfe_sfml_imgui_svg_bin.so libsfe_sfml_imgui_svg_bin.so > /dev/null 2>&1 )
+    $(rm -rf /Users/ibrahimatraore/COURSES/libsfe_sfml_imgui_svg_bin.so/libsfe_sfml_imgui_svg_bin.so > /dev/null 2>&1)
     
-    echo -e "${ONGREEN} libsfe_sfml_imgui_bin.so@ link has been created with SFE_SFML_IMGUI_LIBS DIRECTORY${RESET}\n"
-    result=$(ls -lrt  | grep libsfe_sfml_imgui_bin.so)
+    echo -e "${ONGREEN} libsfe_sfml_imgui_svg_bin.so@ link has been created with SFE_SFML_LIBS DIRECTORY${RESET}\n"
+    result=$(ls -lrt  | grep libsfe_sfml_imgui_svg_bin.so)
     echo -e "${CYAN} ${result} ${RESET}\n"
     return 
 elif [ "$1" == "make" ]
