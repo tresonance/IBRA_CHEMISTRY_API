@@ -224,7 +224,7 @@ int main(){
 
     // #  SET TOP MENU TITLE (Because we cannot set it from GIT_ONLY_BOARD_GPU)   # //
  
-sc.tm.leconTitle.setString( "THE ALCOHOLS" );
+sc.tm.leconTitle.setString( "Nomenclature" );
 
     /*  UPDATE  ONLY_BOARD THE LEFT MENU CONTAINER COLORS(border and background) */
     //sc.lm.container.setFillColor(SCREEN_BACKGROUND_COLOR(EXTERN_BACKGROUND_CHOSEN_COLOR));
