@@ -2,8 +2,8 @@
 #define __GEOMETRY_HPP__
 
 //#include "generalHeader.hpp"
-#include "./MY_CHANELS_GENERIC_SYMLINK/ONLY_BOARD_SYMLINK/board-only.hpp"
-#include "./MY_CHANELS_GENERIC_SYMLINK/ONLY_BOARD_SYMLINK/board-ext-geometry.hpp"
+#include "./ONLY_BOARD_SYMLINK/board-only.hpp"
+#include "./ONLY_BOARD_SYMLINK/board-ext-geometry.hpp"
 
 //TEST_WITH_SINGLE_MP4_FILE: if we do not want DiskE, 
 //Just only want to quickly test
