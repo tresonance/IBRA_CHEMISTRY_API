@@ -13,12 +13,12 @@
 /* --------------------------------------------------- */
 
 #undef LEFT_MENU_ICONS_PATH
-#define LEFT_MENU_ICONS_PATH  "/Users/ibrahimatraore/COURSES/ONLY_BOARD/LEFT_MENU_ICONS//"
+#define LEFT_MENU_ICONS_PATH  "ONLY_BOARD_SYMLINK/LEFT_MENU_ICONS/"
 #undef MY_FONTS_PATH
-#define MY_FONTS_PATH  "/Users/ibrahimatraore/COURSES/ONLY_BOARD/MY_FONTS//"
+#define MY_FONTS_PATH  "ONLY_BOARD_SYMLINK/MY_FONTS/"
 #undef TOP_MENU_ICONS_PATH
-#define TOP_MENU_ICONS_PATH "/Users/ibrahimatraore/COURSES/ONLY_BOARD/TOP_MENU_ICONS//"
-#define MP3_FILE_PATH  "/Users/ibrahimatraore/COURSES/ONLY_BOARD/single-music-mp3//"
+#define TOP_MENU_ICONS_PATH "ONLY_BOARD_SYMLINK/TOP_MENU_ICONS/"
+#define MP3_FILE_PATH  "ONLY_BOARD_SYMLINK/single-music-mp3/"
 
 #include <string>
 #include <SFML/System.hpp>
