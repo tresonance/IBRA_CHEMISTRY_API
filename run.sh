@@ -178,23 +178,24 @@ then
     ##################################################\n"
     $(rm -rf $ONLY_BOARD_SYMLINK && rm -rf ../$ONLY_BOARD_SYMLINK)
     #$(ln -s $HOME/COURSES/GIT_ONLY_BOARD_GPU/ ONLY_BOARD > /dev/null 2>&1)
-    $(rm -rf  libsfe_sfml_imgui_svg_bin.so  > /dev/null 2>&1 )
+    $(rm -rf  libsfe_movie_bin.so  > /dev/null 2>&1 )
     # create new
-    $(ln -s $HOME/COURSES/SFE_SFML_IMGUI_LIBS/basic_all_in_one/libsfe_sfml_imgui_svg_bin.so libsfe_sfml_imgui_svg_bin.so > /dev/null 2>&1 )
-    # $(mv $HOME/COURSES/MY_CHANELS_MANIMS/DYNAMIC/MANIM/libsfe_sfml_imgui_svg_bin.so  ../EXTERN_GEOMETRIE/ > /dev/null 2>&1 )
+    $(ln -s $HOME/COURSES/SFE_SFML_IMGUI_LIBS/create_unique_library/libsfe_movie_bin.so libsfe_movie_bin.so > /dev/null 2>&1 )
+    # $(mv $HOME/COURSES/MY_CHANELS_MANIMS/DYNAMIC/MANIM/libsfe_movie_bin.so  ../EXTERN_GEOMETRIE/ > /dev/null 2>&1 )
     # remove recursive untracked dir in ONLY_DIR (the original not he link)
-    $(rm -rf $HOME/COURSES/libsfe_sfml_imgui_svg_bin.so/libsfe_sfml_imgui_svg_bin.so > /dev/null 2>&1)
-    $(rm -rf $HOME/COURSES/API_MANIMS/DYNAMIC/MANIM/libsfe_sfml_imgui_svg_bin.so > /dev/null 2>&1 )
+    $(rm -rf $HOME/COURSES/libsfe_movie_bin.so/libsfe_movie_bin.so > /dev/null 2>&1)
+    $(rm -rf $HOME/COURSES/API_MANIMS/DYNAMIC/MANIM/libsfe_movie_bin.so > /dev/null 2>&1 )
     
-    echo -e "${ONGREEN} libsfe_sfml_imgui_svg_bin.so@ link has been created with SFE_SFML_IMGUI_LIBS DIRECTORY${RESET}\n"
+    echo -e "${ONGREEN} libsfe_movie_bin.so@ link has been created with SFE_SFML_IMGUI_LIBS DIRECTORY${RESET}\n"
     
-    result=$(ls -lrt  | grep libsfe_sfml_imgui_svg_bin.so)
+    result=$(ls -lrt  | grep libsfe_movie_bin.so)
     echo -e "${CYAN} ${result} ${RESET}\n"
     echo -e "#####################################################################\n
     #\n\
     #\t\t [API MANIMS] End building symbolik with SFE_SFML_IMGUI_LIBS generated library \n\
     #\n\
     ##################################################\n"
+    exit 0
 
 elif [[ "$1" == "make" ]]
 then 

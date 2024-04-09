@@ -3,11 +3,6 @@
 #include "ONLY_BOARD_SYMLINK/board-ext-geometry.hpp"
 #include "ONLY_BOARD_SYMLINK/board-gpu-kernels.hpp"
 
-// Dear imgui 
-#include "../SFE_SFML_IMGUI_LIBS/basic_imgui/imgui_headers/imgui-SFML.hpp"
-#include "../SFE_SFML_IMGUI_LIBS/basic_imgui/imgui_headers/imgui.hpp"
-#include "../SFE_SFML_IMGUI_LIBS/basic_text_editor/TextEditor/TextEditor.hpp"
-
 
 //include opencl 
 //include external 
@@ -119,53 +114,6 @@ int main(){
     /* Update default stroke color */
     sc.currentStrokeDefaultColor[sc.bm.currentRenderWindowNumber] = SCREEN_DEFAULT_STROKE_COLOR;
 
-    /* ************************************************* */
-    /*                     DEAR IMGUI                    */
-    /* ************************************************* */
-
-     // Initialisez ImGui
-    ImGui::CreateContext();
-    ImGuiContext* context = ImGui::GetCurrentContext();
-    ImGui::SetCurrentContext(context);
-    ImGui::SFML::Init(*sc.currentRenderWindow);
-    // Augmentez la taille des caractères de 50%
-    ImGui::GetIO().FontGlobalScale = static_cast<float>(IMGUI_EDITOR_CHARACTER_SIZE);
-
-     // Variables pour la saisie de texte
-    static char inputCodeFromFileBuffer[1024] = "";
-    static char inputCodeFromTexEnteredBuffer[1024] = "";
-    static bool inputTextIsActive = false;
-    static bool inputTextHasFocus = false;
-   
-    std::string code_compiled_result = "";
-
-    // Load Fonts
-	// (there is a default font, this is only if you want to change it. see extra_fonts/README.txt for more details)
-	ImVec4 clear_col = ImColor(114, 144, 154);
-
-    //Result after compiled Imgui-SFML code 
-    sf::Font font;
-    font.loadFromFile("ONLY_BOARD_SYMLINK/MY_FONTS/arial.ttf");
-
-    sf::Text result("----[Run Result]---- :\n", font, 16);
-    result.setPosition(100, 250);
-    result.setFillColor(sf::Color::Green);
-
-    ///////////////////////////////////////////////////////////////////////
-	// TEXT EDITOR SAMPLE
-	TextEditor editor;
-	auto lang = TextEditor::LanguageDefinition::CPlusPlus();
-
-    static const char* fileToEdit = "SFE_SFML_IMGUI_LIBS_SYMLINK/basic_text_editor/fakeScript/code.cpp";
-    std::ifstream t(fileToEdit);
-    if (t.good())
-    {
-        std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
-        editor.SetText(str);
-    }
-
-
-     //mpc::math::Screen sc2 = mpc::math::Screen( WHITE, BLACK, BLACK );
 
     /* ************************************************* */
     /*                 ANIMATED VIDEO                    */
@@ -224,7 +172,7 @@ int main(){
 
     // #  SET TOP MENU TITLE (Because we cannot set it from GIT_ONLY_BOARD_GPU)   # //
  
-sc.tm.leconTitle.setString( "Chemistry" );
+sc.tm.leconTitle.setString( "CHIMIE ORGANIQUE" );
 
     /*  UPDATE  ONLY_BOARD THE LEFT MENU CONTAINER COLORS(border and background) */
     //sc.lm.container.setFillColor(SCREEN_BACKGROUND_COLOR(EXTERN_BACKGROUND_CHOSEN_COLOR));
@@ -273,7 +221,7 @@ sc.tm.leconTitle.setString( "Chemistry" );
                         ChildsRenderWindows[2]->close();
                         ChildsRenderWindows[3]->close();*/
                     } //Escape = close window
-                    else if (!sc.IS_IMGUI_EDITOR_WINDOW_HOVERED_OR_CLICKED[sc.bm.currentRenderWindowNumber])
+                    else 
                     {
                         if( event.key.code == sf::Keyboard::Backspace ){  } //TODO: for  cleaning backwaed text entered
                         else if( event.key.code == sf::Keyboard::Return ){} //TODO: to validate text entered
@@ -370,7 +318,7 @@ sc.tm.leconTitle.setString( "Chemistry" );
                                 }
                             }//else if
                         }//else if ( SHOW_ANIMED_SFE_MOVIES_VIDEO )
-                    }//if (!sc.IS_IMGUI_EDITOR_WINDOW_HOVERED_OR_CLICKED[sc.currentRenderWindowNumber])
+                    }//if 
                     break;
                 case sf::Event::MouseButtonPressed:
 
@@ -378,16 +326,16 @@ sc.tm.leconTitle.setString( "Chemistry" );
                     cursorPos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*sc.currentRenderWindow));
 
                     /********************************************************/
-                    /* On verifie si on a clicke sur timeline, puis si on a clické  dans la fenetre imgui-Sfml */
-                    /* Je traite ça ici car je ne peux pas passer ne namespace Imgui:: en parametre */
-                    /* de la fonction handle (à voir                     )  */
+                    /* On verifie si on a clicke sur timeline               */
+                    /*                                                      */
+                    /*                                                      */
                     /********************************************************/
                     
 
                     //TimeLine Management
                     if (  false == ui->isTimeLineContainerClicked(cursorPos) ){
                        
-                        sc.handleScreenMouseButtonPressed_extern_imgui(event, cursorPos, anim_movies.movie.getPlayingOffset(), SCREEN_BACKGROUND_COLOR(EXTERN_BACKGROUND_CHOSEN_COLOR), context);
+                        sc.handleScreenMouseButtonPressed_extern(event, cursorPos, anim_movies.movie.getPlayingOffset(), SCREEN_BACKGROUND_COLOR(EXTERN_BACKGROUND_CHOSEN_COLOR));
                         //Movies backward forward event 
                         if(true == anim_movies.handleBackwardForwardButtonPressed(event, cursorPos) ){
                             mymusic.movie.stop();
@@ -423,7 +371,7 @@ sc.tm.leconTitle.setString( "Chemistry" );
                     cursorPos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*sc.currentRenderWindow));
                     if (  false == ui->isTimeLineContainerClicked(cursorPos) ){  
                         //sc.handleScreenMouseMoved(event, cursorPos);
-                        sc.handleScreenMouseMoved_extern_imgui(event, cursorPos, anim_movies.movie.getPlayingOffset(), SCREEN_BACKGROUND_COLOR(EXTERN_BACKGROUND_CHOSEN_COLOR), context);
+                        sc.handleScreenMouseMoved_extern(event, cursorPos, anim_movies.movie.getPlayingOffset(), SCREEN_BACKGROUND_COLOR(EXTERN_BACKGROUND_CHOSEN_COLOR));
                     }
                     else if ( SHOW_ANIMATED_SFE_MOVIES_VIDEO && sf::Mouse::isButtonPressed(sf::Mouse::Left)  ){ //Update the timeline cursor position and strokes on screen
                         int xPos = 0;
@@ -492,148 +440,6 @@ sc.tm.leconTitle.setString( "Chemistry" );
             }// switch(event.type)
 
         }//while(window.pollEvent(event))
-
-        /* ****************************************** */
-        /*     DEBUT UPDATE    IMGUI        UPDATE       */
-        /* ****************************************** */
-        if (SHOW_IMGUI_TEXT_EDITOR){
-            if (sc.bm.previousRenderWindowNumber != sc.bm.currentRenderWindowNumber){
-                ImGui::EndFrame();
-                ImGui::SFML::Init(*sc.currentRenderWindow);
-            }
-            ImGui::SFML::Update(*sc.currentRenderWindow, deltaClock.restart());
-            // Positionner la fenêtre à un endroit précis
-            //ImGui::SetNextWindowPos(ImVec2(WIDTH/2, 20));
-            //dimensionner la fenetre
-            ImGui::SetNextWindowSize(ImVec2(0.45*WIDTH, 0.75*HEIGHT)); // définir la taille de la fenêtre à 800x600 pixels
-            auto cpos = editor.GetCursorPosition();
-            ImGui::Begin("Code Editor", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiInputTextFlags_EnterReturnsTrue); //Si j'utilise cette ligne, le petit triangle qui me permet de reduire la fenetre n'apparait plus
-            //ImGui::Begin("Code Editor");//, nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar | ImGuiInputTextFlags_EnterReturnsTrue);
-        
-            // Obtenir la position de la fenêtre ImGui-SFML
-            //ImVec2 windowPos = ImGui::GetWindowPos();
-
-            // Afficher la position de la fenêtre ImGui-SFML
-            //std::cout << "( "+std::to_string(windowPos.x)+std::string(" ")+std::to_string(windowPos.y)+std::string(" )");
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("File"))
-                {
-                    if (ImGui::MenuItem("New", "Alt-N")){
-                        inputTextIsActive = !inputTextIsActive;
-                        inputTextHasFocus = true;
-                        //std::cout << "Alt ACT° "; std::cout << inputTextIsActive; std::cout << std::endl;
-                        //std::cout << "Alt FOC° "; std::cout << inputTextHasFocus; std::cout << std::endl;
-                        memset(inputCodeFromFileBuffer, 0, sizeof(inputCodeFromFileBuffer));
-                        editor.SetText(inputCodeFromFileBuffer);
-                    }
-                    if (ImGui::MenuItem("Save"))
-                    {
-                        strcpy(inputCodeFromFileBuffer ,editor.GetText().c_str());
-                        /// save text....
-                    }
-                    if (ImGui::MenuItem("code.cpp"))
-                    {
-                        std::ifstream t(fileToEdit);
-                        if (t.good())
-                        {
-                            std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
-                            editor.SetText(str);
-                        }
-                    }
-                    if (ImGui::MenuItem("Quit", "Alt-F4"))
-                        break;
-                    ImGui::EndMenu();
-                }
-
-                if (ImGui::BeginMenu("Edit"))
-                {
-                    bool ro = editor.IsReadOnly();
-                    if (ImGui::MenuItem("Read-only mode", false, &ro))
-                        editor.SetReadOnly(ro);
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("Undo", "ALT-Backspace", false, !ro && editor.CanUndo()))
-                        editor.Undo();
-                    if (ImGui::MenuItem("Redo", "Ctrl-Y", false, !ro && editor.CanRedo()))
-                        editor.Redo();
-
-                    ImGui::Separator();
-
-                    if (ImGui::MenuItem("Copy", "Ctrl-C", false, editor.HasSelection()))
-                        editor.Copy();
-                    if (ImGui::MenuItem("Cut", "Ctrl-X", false, !ro && editor.HasSelection()))
-                        editor.Cut();
-                    if (ImGui::MenuItem("Delete", "Del", false, !ro && editor.HasSelection()))
-                        editor.Delete();
-                    if (ImGui::MenuItem("Paste", "Ctrl-V", false, !ro && ImGui::GetClipboardText() != nullptr))
-                        editor.Paste();
-                    
-
-                    ImGui::Separator();
-
-                    if (ImGui::MenuItem("Select all"))
-                        editor.SetSelection(TextEditor::Coordinates(), TextEditor::Coordinates(editor.GetTotalLines(), 0));
-                    ImGui::EndMenu();
-                }
-
-                if (ImGui::BeginMenu("View"))
-                {
-                    if (ImGui::MenuItem("Dark palette"))
-                        editor.SetPalette(TextEditor::GetDarkPalette());
-                    if (ImGui::MenuItem("Light palette"))
-                        editor.SetPalette(TextEditor::GetLightPalette());
-                    if (ImGui::MenuItem("Retro blue palette"))
-                        editor.SetPalette(TextEditor::GetRetroBluePalette());
-                    ImGui::EndMenu();
-                }
-
-                ImGui::SameLine();
-                if (ImGui::Button("RUN")  ) { 
-                    if (strlen(inputCodeFromFileBuffer) ){ // If the showed script is from a file 
-                        //std::cout << "inputCodeFromFileBuffer Copié: "; std::cout << inputCodeFromFileBuffer;std::cout << std::endl;
-                        code_compiled_result = get_imgui_editor_code_result(inputCodeFromFileBuffer);
-                        result.setString(code_compiled_result);
-                        memset(inputCodeFromFileBuffer, 0, sizeof(inputCodeFromFileBuffer));
-                    }
-                    else {
-                        editor.SetSelection(TextEditor::Coordinates(), TextEditor::Coordinates(editor.GetTotalLines(), 0));
-                        strcpy(inputCodeFromTexEnteredBuffer, editor.GetText().c_str());
-                        //std::cout << "inputCodeFromTexEnteredBuffer: "; std::cout << inputCodeFromTexEnteredBuffer; std::cout << std::endl;
-                        if (strlen(inputCodeFromTexEnteredBuffer)){ //if the schowed script is not from file but from TextEntered
-                            code_compiled_result = get_imgui_editor_code_result(inputCodeFromTexEnteredBuffer);
-                            result.setString(code_compiled_result);
-                            memset(inputCodeFromTexEnteredBuffer, 0, sizeof(inputCodeFromTexEnteredBuffer));
-                        }
-                    }
-                }
-
-                ImGui::SameLine();
-                if (ImGui::Button("RESET")  ) { 
-                    result.setString("");
-                }
-
-                ImGui::EndMenuBar();
-            }
-
-            ImGui::Text("%6d/%-6d %6d lines  | %s | %s | %s | %s", cpos.mLine + 1, cpos.mColumn + 1, editor.GetTotalLines(),
-            editor.IsOverwrite() ? "Ovr" : "Ins",
-            editor.CanUndo() ? "*" : " ",
-            editor.GetLanguageDefinition().mName.c_str(), fileToEdit);
-            
-            if (inputTextIsActive)
-            {
-                //ImGui::InputText("##InputText", inputCodeFromFileBuffer, sizeof(inputCodeFromFileBuffer));
-                ImGui::InputTextMultiline("##inputCodeFromTexEnteredBuffer", inputCodeFromTexEnteredBuffer, sizeof(inputCodeFromFileBuffer), ImVec2(-1, -1), ImGuiInputTextFlags_EnterReturnsTrue);
-
-                ImGui::SetKeyboardFocusHere(1);
-                inputTextHasFocus = ImGui::IsItemActive();
-            }
-            
-            editor.Render("TextEditor");
-            ImGui::EndMenu;
-            ImGui::End();
-        }//if (SHOW_IMGUI_TEXT_EDITOR)
-
 
         /* ****************************************** */
         /*      UPDATE     UPDATE        UPDATE       */
@@ -710,22 +516,11 @@ sc.tm.leconTitle.setString( "Chemistry" );
          //draw stroke
         sc.opencl.drawCurrentStroke(sc.currentRenderWindow); //draw stroke 
         sc.opencl.drawAllStrokeVector(sc.currentRenderWindow);
-        
-        /* ****************************************** */
-        /*                                            */
-        /* ****************************************** */
-        //Imgui editor Window
-        if ( SHOW_IMGUI_TEXT_EDITOR && (sc.bm.currentRenderWindowNumber == 0) && SHOW_ANIMATED_SFE_MOVIES_VIDEO ){
-            sc.currentRenderWindow->draw(result);
-            ImGui::SFML::Render(*sc.currentRenderWindow);
-        }
         sc.currentRenderWindow->display();
             
     }//while(sc.currentRenderWindow->isOpen())
 
     std::cout << "\n\n---------------------------------------\n-------- FREEING  RESSOURCES ----------\n---------------------------------------\n";
-    std::cout << "Shut down imgui-SFML\n";
-    ImGui::SFML::Shutdown();
 
     //delete window;
     for (int i = 0; i < static_cast<int>( NUM_RENDER_WINDOWS); i++){
